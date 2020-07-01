@@ -1,0 +1,23 @@
+#signUpComponent{
+    padding:2rem;
+    border-radius:1rem;
+    display:inline;
+    position:absolute;
+    right:20%;
+    background-color:rgba(255,255,255,0.2)
+}
+
+#signInComponent{
+    padding:2rem;
+    border-radius:1rem;
+    display:inline;
+    position:absolute;
+    left:20%;
+    background-color:rgba(255,255,255,0.2)
+}
+
+#loading{
+    position:absolute;
+    left:45%;
+    top:50%
+}
