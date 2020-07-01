@@ -6,3 +6,8 @@ Instructions to run:
 2. run "npm install" in the /server directory
 3. start server by running "node src/index.js" in the /server directory
 4. run "npm start" in the /colabnote directory to start the frontend
+
+
+Demo :
+
+![](demo.gif)
