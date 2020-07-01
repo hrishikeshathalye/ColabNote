@@ -10,4 +10,4 @@ Instructions to run:
 
 Demo :
 
-![](demo.gif =400x400)
+![](demo.gif)
