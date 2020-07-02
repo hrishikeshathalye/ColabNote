@@ -56,7 +56,7 @@ io.on('connection', (socket) => {
 });
 
 server.listen(5000, '0.0.0.0', (err) => {
-    console.log("Login server listening on port 5000");
+    console.log("APIs listening on port 5000");
 });
   
 module.exports = server;
