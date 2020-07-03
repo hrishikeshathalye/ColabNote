@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
 const Header = () => (
   <div className="jumbotron" style={{ paddingTop:'1rem', paddingBottom:'1rem', marginBottom:'0'}}>
     {/* <Link to="/">Home</Link> */}

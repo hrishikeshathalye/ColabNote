@@ -10,7 +10,7 @@ const noteSchema = new mongoose.Schema({
         required : true
     },
     auth_users: {
-        type: String,
+        type: [String],
     },
     isDeleted:{
         type:Boolean,

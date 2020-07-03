@@ -6,7 +6,6 @@ import { createEditor } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
 import initialValues from "../../initialValues";
 import io from 'socket.io-client';
-import { withRouter } from "react-router-dom";
 
 const socket = io("localhost:4000");  //instance of socketio client
 
@@ -72,7 +71,7 @@ const Editor = (groupId) => {
           padding:'1rem',
           color:'black',
           margin:'auto'
-        }} />
+        }}/>
       </Slate>
     )
 }

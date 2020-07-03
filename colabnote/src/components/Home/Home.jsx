@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
-import GroupEditor from '../Editors/GroupEditor' 
+import { Route, Redirect, Link, Switch, BrowserRouter } from "react-router-dom";
+import GroupEditor from '../Editors/GroupEditor';
+import MyNotes from '../Note/MyNotes'
+import SharedNotes from '../Note/SharedNotes'
 import {
     getFromStorage,
     setInStorage
 } from '../../utils/storage'
-import Editor from '../Editors/Editor';
 
 class Home extends Component {
   constructor(props) {
@@ -37,7 +38,9 @@ class Home extends Component {
     const obj = getFromStorage('ColabNote')
     if(obj && obj.token){
         const {token} = obj;
-        fetch('/api/account/verify?token=' + token).then(res=>res.json())
+        //const userid = token[1];
+        const tokenid = token[0];
+        fetch('/api/account/verify?token=' + tokenid).then(res=>res.json())
         .then(json=>{
             if(json.success){
                 this.setState({
@@ -181,7 +184,9 @@ class Home extends Component {
     const obj = getFromStorage('ColabNote')
     if(obj && obj.token){
         const {token} = obj;
-        fetch('/api/account/logout?token=' + token).then(res=>res.json())
+        //const userid = token[1];
+        const tokenid = token[0];
+        fetch('/api/account/logout?token=' + tokenid).then(res=>res.json())
         .then(json=>{
             if(json.success){
                 this.setState({
@@ -269,29 +274,32 @@ class Home extends Component {
         </div>
         )}
     return (
-      <div>
-        <nav className="navbar navbar-expand-lg">
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div className="navbar-nav nav-fill w-100">
-                    <a className="nav-item nav-link btn-primary btn active" style={{marginRight:'5px'}} href="/try">Try<span class="sr-only">(current)</span></a>    
-                    <a className="nav-item btn nav-link btn-primary" style={{marginRight:'5px'}} href="/">My Notes</a>
-                    <a className="nav-item nav-link btn-primary btn" style={{marginRight:'5px'}} href="/">Shared With Me</a>
-                    <a className="nav-item btn btn-primary" onClick={this.logout}>Logout</a>
-                </div>
-            </div>
-        </nav>
+        <div>
         <BrowserRouter>
-            <Route
+            <nav className="navbar navbar-expand-lg">
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse">
+                    <div className="navbar-nav nav-fill w-100">
+                        <Link className="nav-item nav-link btn-primary btn" style={{marginRight:'5px'}} to="/group/try">Try<span className="sr-only">(current)</span></Link>    
+                        <Link className="nav-item btn nav-link btn-primary" style={{marginRight:'5px'}} to="/mynotes">My Notes</Link>
+                        <Link className="nav-item nav-link btn-primary btn" style={{marginRight:'5px'}} to="/sharednotes">Shared With Me</Link>
+                        <Link className="nav-item btn btn-primary" to="/" onClick={this.logout}>Logout</Link>
+                    </div>
+                </div>
+            </nav>
+            <Switch>
+                <Route path="/mynotes"  component={MyNotes} />
+                <Route path="/sharednotes" component={SharedNotes}/>
+                <Route path="/group/:id" component={GroupEditor} />
+                <Route
                 path="/"
-                exact
                 render={() => {
                 return <Redirect to={`/group/try`} />;
                 }}
-            />
-            <Route path="/group/:id" component={GroupEditor} />
+                />
+            </Switch>
         </BrowserRouter>
       </div>
     );

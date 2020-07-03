@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
-import Home from '../Home/Home'
+import React   from 'react';
 import Header from '../Header/Header';
-import { withRouter } from 'react-router-dom';
 
 const App = ({ children }) => (
   <div>

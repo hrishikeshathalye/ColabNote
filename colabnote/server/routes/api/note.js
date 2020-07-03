@@ -10,6 +10,7 @@ module.exports = (app) => {
         } = body;
         const newNote = new Note();
         newNote.owner = owner;
+        newNote.data = '';
         newNote.save((err, note)=>{
         if(err){
                 return res.send({
@@ -46,7 +47,7 @@ module.exports = (app) => {
         });
     });
     //get notes owned by the person
-    app.get('/api/note/getnotesbyowner', (req,res,next)=>{
+    app.post('/api/note/getnotesbyowner', (req,res,next)=>{
         const {body} = req;
         let {
             owner
@@ -65,8 +66,26 @@ module.exports = (app) => {
             }
         });
     });
+    //get notes by note id/group id
+    app.post('/api/note/getnotebyid', (req,res,next)=>{
+        const {body} = req;
+        let {
+            docId
+        } = body;
+        Note.findById(docId, (err, note)=>{
+        if(err){
+                return res.send({
+                    success:false,
+                    message:'Server Error'
+                })                   
+            }
+            return res.send({
+                note
+            })
+        });
+    })
     //get notes share with the person
-    app.get('/api/note/getnotesbyauthuser', (req,res,next)=>{
+    app.post('/api/note/getnotesbyauthuser', (req,res,next)=>{
         const {body} = req;
         let {
             auth_user
