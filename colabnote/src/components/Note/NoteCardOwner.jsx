@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function NoteCard(p) {
+export default function NoteCardOwner(p) {
   const classes = useStyles();
   const [data, setData] = useState('');
   const [docId, setId] = useState('');
@@ -25,7 +25,7 @@ export default function NoteCard(p) {
     const {props} = p;
     let {_id, data} = props;
     setId(_id);
-    data = data.substring(0, 5);
+    data = data.substring(0, 20);
     data += '...';
     setData(data);
   }, [p]);

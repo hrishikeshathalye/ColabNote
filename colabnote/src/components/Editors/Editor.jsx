@@ -41,6 +41,7 @@ const Editor = (groupId) => {
       // Add the editable component inside the context.
       <Slate editor={editor} 
         value={value} 
+        style={{display:'inline'}}
         onChange=
         { opts => {
           setValue(opts);
@@ -64,13 +65,14 @@ const Editor = (groupId) => {
         >
         <Editable style={{
           backgroundColor:'#e1ffc2',
-          maxWidth:800,
-          minHeight:400,
+          maxWidth:1050,
+          minHeight:440,
           borderRadius:'0.5rem',
-          border:'2px solid black',
+          border:'3px solid black',
           padding:'1rem',
           color:'black',
-          margin:'auto'
+          margin:'auto',
+          marginLeft:'1rem',
         }}/>
       </Slate>
     )

@@ -1,6 +1,7 @@
 //note api which implements function for notes like create, save, getNotesByOwner, getNotesbyAuthUser, delete, edit, addauthuser, removeauthuser
 //each note has an id(default mongo id, so it is guaranteed to be unique) all notes rendered on users screen by this id, /group/note_id
 const Note = require('../../models/note');
+const User = require('../../models/user');
 module.exports = (app) => {
     //create note for the first time
     app.post('/api/note/create', (req,res,next)=>{
@@ -11,6 +12,7 @@ module.exports = (app) => {
         const newNote = new Note();
         newNote.owner = owner;
         newNote.data = '';
+        newNote.auth_users = [];
         newNote.save((err, note)=>{
         if(err){
                 return res.send({
@@ -165,6 +167,108 @@ module.exports = (app) => {
                 return res.send({
                     success:true,
                     message:'Good'
+                });
+            }
+        });
+    });
+
+
+    //takes in a noteId and returns id, email and name of the user authorised to use it
+    app.post('/api/note/getauthusers', (req,res,next)=>{
+        const {body} = req;
+        let {
+            noteId
+        } = body;
+        Note.findOne({ '_id': noteId, isDeleted:false }, 'auth_users', function (err, foundUsers) { 
+            if(err){
+                return res.send({
+                    success:false,
+                    message:'Server Error'
+                })
+            }
+            else if(!(foundUsers)){
+                return res.send(
+                    []
+                );
+            }
+            else{
+                const auth_users = foundUsers.auth_users;
+                User.find({
+                    '_id': { $in: auth_users},
+                    isDeleted:false
+                },"id email first_name last_name", function(err, docs){
+                     if(err){
+                        return res.send({
+                            success:false,
+                            message:'Server Error'
+                        })
+                     }
+                     else{
+                        console.log(docs);
+                        return res.send(
+                            docs
+                        );
+                     }
+                });
+            }
+        });
+    });
+
+    //takes in a noteId and returns id, email and name of all users except authorised users
+    app.post('/api/note/getothers', (req,res,next)=>{
+        const {body} = req;
+        let {
+            noteId
+        } = body;
+        let ownerId = '';
+        Note.findOne({ '_id': noteId, isDeleted:false }, 'owner', function (err, foundUser) { 
+            if(err){
+                return res.send({
+                    success:false,
+                    message:'Server Error'
+                })
+            }
+            else if(!(foundUser)){
+                return res.send(
+                    []
+                );
+            }
+            else{
+                ownerId = foundUser.owner;
+            }
+        });
+        Note.findOne({ '_id': noteId, isDeleted:false }, 'auth_users', function (err, foundUsers) { 
+            if(err){
+                return res.send({
+                    success:false,
+                    message:'Server Error'
+                })
+            }
+            else if(!(foundUsers)){
+                return res.send(
+                    []
+                );
+            }
+            else{
+                const auth_users = foundUsers.auth_users;
+                User.find({
+                    '_id': { $nin: auth_users},
+                    isDeleted:false
+                },"id email first_name last_name", function(err, docs){
+                     if(err){
+                        return res.send({
+                            success:false,
+                            message:'Server Error'
+                        })
+                     }
+                     else{
+                        docs = docs.filter(function( obj ) {
+                            return obj.id !== ownerId;
+                        });
+                        return res.send(
+                            docs
+                        );
+                     }
                 });
             }
         });

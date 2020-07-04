@@ -1,7 +1,7 @@
 //This component displays the users notes as a clickable list routing to the route specified by the document id
 import React, {useEffect, useState} from "react"
 import {Grid} from '@material-ui/core';
-import NoteCard from './NoteCard';
+import NoteCard from './NoteCardOwner';
 import AddNote from './AddNote';
 function MyNotes(props){
     let [notes, setNotes] = useState([]);

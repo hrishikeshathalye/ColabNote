@@ -1,7 +1,7 @@
 //This component renders the notes shared with a user 
 import React, {useEffect, useState} from "react"
 import {Grid} from '@material-ui/core';
-import NoteCard from './NoteCard';
+import NoteCard from './NoteCardAuthUser';
 function SharedNotes(props){
     let [notes, setNotes] = useState([]);
     useEffect(() => {

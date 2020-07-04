@@ -13,7 +13,7 @@ ReactDOM.render(
         <App>
             <Switch>
                 <Route path="/" component={Home}/>
-                {/* <Route exact component={NotFound}/> */}
+                <Route component={NotFound}/>
             </Switch>
         </App>
     </Router>,

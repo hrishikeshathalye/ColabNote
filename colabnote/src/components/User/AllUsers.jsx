@@ -1,4 +1,4 @@
-//shows all authorized users
+//Shows all users minus auth users
 import React, { useEffect, useState } from 'react';
 import UserItem from './UserItem';
 import Button from '@material-ui/core/Button';
@@ -6,7 +6,7 @@ export default function AuthUsers({groupId}){
     let [users, setUsers] = useState([]);
     useEffect(()=>{
         function clicked(userId){
-            fetch('/api/note/removeauthuser',
+            fetch('/api/note/addauthuser',
             { method: 'PATCH',
                     headers:{
                         'Content-Type':'application/json'
@@ -18,7 +18,7 @@ export default function AuthUsers({groupId}){
             })
         }    
         const noteId = groupId;
-        fetch('/api/note/getauthusers',
+        fetch('/api/note/getothers',
         { method: 'POST',
             headers:{
                 'Content-Type':'application/json'
@@ -38,8 +38,8 @@ export default function AuthUsers({groupId}){
     });
 
     return(
-        <div style={{textAlign:'center', backgroundColor:"#00adb5", padding:'0.5rem',borderRadius:'0.5rem',border:'3px solid black',overflow:'auto', width:'270px',maxHeight:'200px', display:'inline', position:'absolute', right:'1rem', top:'23rem'}}>
-            <p>Authorized Users (Click to remove)</p>
+        <div style={{textAlign:'center', backgroundColor:"#00adb5", padding:'0.5rem',borderRadius:'0.5rem',border:'3px solid black',overflow:'auto', width:'270px',maxHeight:'200px', display:'inline', position:'absolute', right:'1rem', top:'9.2rem'}}>
+            <p>All Users (Click to authorize)</p>
             {users}
         </div>
     );
