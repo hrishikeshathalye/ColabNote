@@ -10,7 +10,7 @@ Table Of Contents
    * [Features](#features)
    * [Instructions To Run](#instructions-to-run)
    * [Demo](#demo)
-   * [Possible Improvements](#possible-imporvements)
+   * [Possible Improvements](#possible-improvements)
 <!--te-->
 
 Features
