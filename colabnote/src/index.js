@@ -6,14 +6,12 @@ import {
     Route
 } from "react-router-dom";
 import App from './components/App/App';
-import NotFound from './components/App/NotFound';
 import Home from './components/Home/Home';
 ReactDOM.render(
     <Router>
         <App>
             <Switch>
                 <Route path="/" component={Home}/>
-                <Route component={NotFound}/>
             </Switch>
         </App>
     </Router>,

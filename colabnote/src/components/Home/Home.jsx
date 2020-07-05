@@ -221,7 +221,7 @@ class Home extends Component {
         signUpError
     } = this.state;
     if(isLoading){
-        return <div id="loading"><h1>Loading...</h1></div>
+        return <div><h1 id="loading">Loading...</h1></div>
     }
     if(!token){
         return(<div style={{marginTop:'2rem'}}>

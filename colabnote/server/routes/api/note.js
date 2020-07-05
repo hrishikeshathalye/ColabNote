@@ -204,7 +204,7 @@ module.exports = (app) => {
                         })
                      }
                      else{
-                        console.log(docs);
+                        //console.log(docs);
                         return res.send(
                             docs
                         );
@@ -270,6 +270,60 @@ module.exports = (app) => {
                         );
                      }
                 });
+            }
+        });
+    });
+
+    //check if a person owns a note
+    app.post('/api/note/isowner', (req,res,next)=>{
+        const {body} = req;
+        let {
+            noteId,
+            userId
+        } = body;
+        Note.findOne({ '_id':noteId, isDeleted:false }, "owner", function (err, user) { 
+            if(err){
+                return res.send({
+                    success:false,
+                    message:'Server Error'
+                })
+            }
+            else{
+                return res.send({
+                    success: (user.owner===userId),
+                    message:'Good'
+                });
+            }
+        });
+    });
+
+    //check if a person is authorized to see a note
+    app.post('/api/note/isauth', (req,res,next)=>{
+        const {body} = req;
+        let {
+            noteId,
+            userId
+        } = body;
+        Note.findOne({ '_id':noteId, isDeleted:false }, "auth_users", function (err, users) { 
+            if(err){
+                return res.send({
+                    success:false,
+                    message:'Server Error'
+                })
+            }
+            else{
+                if(!users){
+                    return res.send({
+                        success:false,
+                        message:'Good'
+                    });
+                }
+                else{
+                    return res.send({
+                        success:users.auth_users.includes(userId),
+                        message:'Good'
+                    });
+                }
             }
         });
     });

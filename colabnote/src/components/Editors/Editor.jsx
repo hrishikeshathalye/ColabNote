@@ -9,8 +9,8 @@ import io from 'socket.io-client';
 
 const socket = io("localhost:4000");  //instance of socketio client
 
-const Editor = (groupId) => {
-    const groupIdDest = groupId.groupId;
+const Editor = (p) => {
+    const groupIdDest = p.groupId;
     const editor = useMemo(() => withReact(createEditor()), []);
     const remote = useRef(false);
     const [value, setValue] = useState([
@@ -35,7 +35,7 @@ const Editor = (groupId) => {
       return ()=>{
         socket.off(`new-remote-operations-${groupIdDest}`);
       }
-    }, [editor, remote, groupId, groupIdDest]);
+    }, [editor, remote, groupIdDest]);
 
     return (
       // Add the editable component inside the context.
@@ -63,17 +63,9 @@ const Editor = (groupId) => {
           }
         }} 
         >
-        <Editable style={{
-          backgroundColor:'#e1ffc2',
-          maxWidth:1050,
-          minHeight:440,
-          borderRadius:'0.5rem',
-          border:'3px solid black',
-          padding:'1rem',
-          color:'black',
-          margin:'auto',
-          marginLeft:'1rem',
-        }}/>
+        <Editable style={(p.pos)?
+        {backgroundColor:'#e1ffc2',maxWidth:1050,minHeight:440,borderRadius:'0.5rem',border:'3px solid black',padding:'1rem',color:'black',margin:'auto',marginLeft:'1rem'}
+        :{backgroundColor:'#e1ffc2',maxWidth:1050,minHeight:440,borderRadius:'0.5rem',border:'3px solid black',padding:'1rem',color:'black',margin:'auto',marginLeft:'auto'}}/>
       </Slate>
     )
 }

@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import {Link} from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     minWidth: '17rem',
@@ -38,7 +39,7 @@ export default function NoteCardAuthUser(p) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" variant="contained" color="primary"><a style={{textDecoration:'none', color:'inherit'}} href={`/group/${docId}`}>Open</a></Button>
+          <Button size="small" variant="contained" color="primary"><Link style={{textDecoration:'none', color:'inherit'}} to={`/group/${docId}`}>Open</Link></Button>
         </CardActions>
       </Card>
     </Grid>

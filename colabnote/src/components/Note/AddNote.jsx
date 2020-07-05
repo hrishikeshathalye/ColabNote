@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 export default function AddNote(p) {
     const classes = useStyles();
     function handleClick(){
-        let tmp = '';
+        // let tmp = '';
         const {token} = JSON.parse(localStorage.getItem('ColabNote'));
         const userId = token[1];
         fetch('/api/note/create',
@@ -31,7 +31,7 @@ export default function AddNote(p) {
         })
         .then(res => res.json())
         .then(json => {
-            tmp = json.id;
+            // tmp = json.id;
         })
     };
   return (
