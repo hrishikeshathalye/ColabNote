@@ -28,7 +28,7 @@ function SharedNotes(props){
         });
     });
     return(
-        <div class="container">
+        <div className="container">
             <Grid container spacing={10} alignItems="center">
                 {notes}
             </Grid>

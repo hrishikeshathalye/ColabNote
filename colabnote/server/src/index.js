@@ -1,5 +1,4 @@
 const express = require('express')
-const wsserver = express();
 const server = express();
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -7,12 +6,9 @@ const jwt  = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 require('dotenv').config();
-wsserver.use(cors());
-//server.use(cors());
-wsserver.use(bodyParser.json());
-wsserver.use(bodyParser.urlencoded({extended:false}));
-server.use(express.urlencoded({ extended: true }));
-server.use(express.json());
+server.use(cors());
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({extended:false}));
 //MongoDB Atlas connection
 const mongoURL = process.env.MONGOURL;
 mongoose.connect(mongoURL, {useNewUrlParser:true, useUnifiedTopology:true}).then(()=>{
@@ -32,7 +28,7 @@ require('../routes')(server);
 let groupData = {};
 
 //handling get request on port 4000
-wsserver.get('/groups/:groupId', (req, res)=>{
+server.get('/groups/:groupId', (req, res)=>{
     const {groupId} = req.params;
     if(groupId === 'try'){
         let value={
@@ -75,11 +71,11 @@ wsserver.get('/groups/:groupId', (req, res)=>{
     //console.log(groupData[groupId]);
 })
 
-wsserverref = wsserver.listen(4000, ()=>{
-    console.log("Server for websocket running on port 4000");
+let serverref = server.listen(5000, (err) => {
+    console.log("APIs and websocket listening on port 5000");
 });
 
-const io = require('socket.io').listen(wsserverref);
+const io = require('socket.io').listen(serverref);
 io.on('connection', (socket) => {
     console.log("Websocket received a connection");
     // io.emit('init-value', initValue);
@@ -103,10 +99,6 @@ io.on('connection', (socket) => {
         })
         // groupData[data.groupIdDest] = data.value;
     });
-});
-
-server.listen(5000, '0.0.0.0', (err) => {
-    console.log("APIs listening on port 5000");
 });
   
 module.exports = server;

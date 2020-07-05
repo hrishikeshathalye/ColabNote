@@ -7,7 +7,7 @@ import { Slate, Editable, withReact } from 'slate-react';
 import initialValues from "../../initialValues";
 import io from 'socket.io-client';
 
-const socket = io("localhost:4000");  //instance of socketio client
+const socket = io("localhost:5000");  //instance of socketio client
 
 const Editor = (p) => {
     const groupIdDest = p.groupId;
@@ -20,7 +20,7 @@ const Editor = (p) => {
     //useEffect hook for listening to socket events after render is complete
     useEffect(()=>{
       //get request to fetch initial values
-      fetch(`http://localhost:4000/groups/${groupIdDest}`).then(x=>{
+      fetch(`http://localhost:5000/groups/${groupIdDest}`).then(x=>{
         x.json().then(data=>{
           setValue([data]);
         })
