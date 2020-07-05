@@ -1,13 +1,42 @@
 # ColabNote
-This is a collaborative text editor that allows realtime text editing among users. Document access authorization is a planned feature. The text editor is built on top of Slate.js. The collaborative editing part uses web sockets using socket.io. Authentication using bcrypt and tokens. MongoDB as the database.
+This is a collaborative text editor that allows realtime text editing among users. The text editor is built using the MERN stack and on top of [Slate.js](https://github.com/ianstormtaylor/slate). The collaborative editing part is implemented using web sockets with the help of [Socket.io](https://github.com/socketio/socket.io). Authentication using [bcrypt](https://www.npmjs.com/package/bcrypt) and authorization using tokens.
 
-Instructions to run:
+Table of contents
+=================
+
+<!--ts-->
+   * [Features](#features)
+   * [Instructions To Run](#instructions-to-run)
+   * [Demo](#demo)
+   * [Possible Improvements](#possible-imporvements)
+<!--te-->
+
+Features
+=================
+1. User account creation
+2. Create, edit and delete notes
+3. Sharing notes with other users
+4. Real-time editing
+5. Notes are autosaved after every typed letter
+
+Instructions To Run
+=====================
 1. run ```npm install``` in the <b>/colabnote</b> directory
 2. run ```npm install``` in the <b>/server</b> directory
-3. start server by running ```node src/index.js``` in the <b>/server</b> directory
-4. run ```npm start``` in the <b>/colabnote</b> directory to start the frontend
+3. Add a ```.env``` file containing the environment variables for your MongoDB cluster in the following format ```MONGOURL=<yoururl>```
+4. start server by running ```node src/index.js``` in the <b>/server</b> directory
+5. run ```npm start``` in the <b>/colabnote</b> directory to start the frontend
 
 
-Demo :
-
+Demo
+=====================
 ![](demo.gif)
+
+Possible Improvements
+======================
+1. Implementing <b>OT</b> or <b>CRDT</b> to synchronise changes between users to account for network latency.
+2. Showing history of note changes / implementing something like <b>version control</b>.
+3. Adding support for <b>rich text</b> notes, currently only plain text notes can be created.
+4. Implementing <b>OAuth</b> for authentication.
+5. Token based authorisation using <b>JWTs</b>, currently a very bare-bones approach has been followed.
+6. Creating <b>API keys</b> for the note and user APIs.
