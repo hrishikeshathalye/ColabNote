@@ -1,7 +1,9 @@
 # ColabNote
 This is a collaborative text editor that allows realtime text editing among users. The text editor is built using the MERN stack and on top of [Slate.js](https://github.com/ianstormtaylor/slate). The collaborative editing part is implemented using web sockets with the help of [Socket.io](https://github.com/socketio/socket.io). Authentication using [bcrypt](https://www.npmjs.com/package/bcrypt) and authorization using tokens.
 
-Table of contents
+The project is live here - [ColabNote](http://colabnote.herokuapp.com/)
+
+Table Of Contents
 =================
 
 <!--ts-->
